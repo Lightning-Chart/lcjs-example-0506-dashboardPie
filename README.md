@@ -51,11 +51,11 @@ Direct developer email support can be purchased through a [Support Plan][4] or b
 [3]: https://stackoverflow.com/questions/tagged/lightningchart
 [4]: https://www.arction.com/support-services/
 
-[Axis]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.0/classes/axis.html
-[ChartXY]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.0/classes/chartxy.html
-[ColorRGBA]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.0/globals.html#colorrgba
-[Dashboard]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.0/classes/dashboard.html
-[DefaultLibraryStyle]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.0/globals.html#defaultlibrarystyle
-[PieChart]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.0/classes/piechart.html
-[SolidFill]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.0/classes/solidfill.html
-[SpiderChart]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.0/classes/spiderchart.html
+[Axis]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.1/classes/axis.html
+[ChartXY]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.1/classes/chartxy.html
+[ColorRGBA]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.1/globals.html#colorrgba
+[Dashboard]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.1/classes/dashboard.html
+[DefaultLibraryStyle]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.1/globals.html#defaultlibrarystyle
+[PieChart]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.1/classes/piechart.html
+[SolidFill]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.1/classes/solidfill.html
+[SpiderChart]: https://www.arction.com/lightningchart-js-api-documentation/v1.0.1/classes/spiderchart.html
