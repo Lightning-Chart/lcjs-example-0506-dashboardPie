@@ -1,4 +1,4 @@
-/**
+/*
  * LightningChartJS example that showcases series/axes progressing to all kinds of directions inside a dashboard.
  */
 // Import LightningChartJS
@@ -34,6 +34,8 @@ const legend = grid.createLegendBoxPanel({
     rowSpan: 1
 })
 
+const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChartTypes.LabelsInsideSlices
+
 //Pie Chart
 {
     //Create a Pie Chart
@@ -41,8 +43,8 @@ const legend = grid.createLegendBoxPanel({
         columnIndex: 0,
         rowIndex: 0,
         columnSpan: 1,
-        rowSpan : 1, 
-        pieChartOptions: { type: PieChartTypes.LabelsOnSides }
+        rowSpan: 1,
+        pieOptions: { type: pieType }
     }))
         .setTitle('CPU Usage')
         .setAnimationsEnabled(true)
@@ -216,11 +218,11 @@ const legend = grid.createLegendBoxPanel({
 {
     //Create a Donut Chart
     const donut = grid.createPieChart({
-        columnIndex: 0, 
+        columnIndex: 0,
         rowIndex: 1,
         columnSpan: 1,
         rowSpan: 2,
-        pieChartOptions: { type: PieChartTypes.LabelsOnSides }
+        pieOptions: { type: pieType }
     })
         .setTitle('Memory Usage')
         .setAnimationsEnabled(true)
