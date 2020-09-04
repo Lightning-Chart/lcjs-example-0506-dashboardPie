@@ -24,14 +24,14 @@ This example shows different kinds of charts inside a dashboard.
 
 ## API Links
 
-* Dashboard: [Dashboard]
-* Solid FillStyle: [SolidFill]
-* RGBA color factory: [ColorRGBA]
-* XY cartesian chart: [ChartXY]
-* Axis: [Axis]
-* Pie chart: [PieChart]
-* Spider chart: [SpiderChart]
-* Default library style: [DefaultLibraryStyle]
+* [Dashboard]
+* [Solid FillStyle]
+* [RGBA color factory]
+* [XY cartesian chart]
+* [Axis]
+* [Pie chart]
+* [Spider chart]
+* [Default library style]
 
 
 ## Support
@@ -55,12 +55,12 @@ Direct developer email support can be purchased through a [Support Plan][4] or b
 © Arction Ltd 2009-2020. All rights reserved.
 
 
-[Dashboard]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/classes/dashboard.html
-[SolidFill]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/classes/solidfill.html
-[ColorRGBA]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/globals.html#colorrgba
-[ChartXY]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/classes/chartxy.html
-[Axis]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/classes/axis.html
-[PieChart]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/classes/piechart.html
-[SpiderChart]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/classes/spiderchart.html
-[DefaultLibraryStyle]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/globals.html#defaultlibrarystyle
+[Dashboard]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/classes/dashboard.html
+[Solid FillStyle]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/classes/solidfill.html
+[RGBA color factory]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/globals.html#colorrgba
+[XY cartesian chart]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/classes/chartxy.html
+[Axis]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/classes/axis.html
+[Pie chart]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/classes/piechart.html
+[Spider chart]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/classes/spiderchart.html
+[Default library style]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/globals.html#defaultlibrarystyle
 

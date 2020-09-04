@@ -17,11 +17,13 @@ const {
     UIDraggingModes,
     PieChartTypes,
     UIElementBuilders,
-    SolidFillPalette
+    SolidFillPalette,
+    Themes
 } = lcjs
 
 // Create a 5x2 dashboard.
 const grid = lightningChart().Dashboard({
+    // theme: Themes.dark 
     numberOfRows: 3,
     numberOfColumns: 2
 }).setBackgroundFillStyle(new SolidFill().setColor(ColorRGBA(24, 24, 24)))
