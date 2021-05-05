@@ -165,14 +165,14 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
 
     // Set the custom result table
     areaCPU
-        .setResultTableFormatter((builder, series, position, highValue, lowValue) => {
+        .setCursorResultTableFormatter((builder, series, position, highValue, lowValue) => {
             return builder
                 .addRow('CPU')
                 .addRow('Power Consumption ' + highValue.toFixed(0) + ' watts')
                 .addRow('component load ' + position.toFixed(0) + ' %')
         })
     areaGPU
-        .setResultTableFormatter((builder, series, position, highValue, lowValue) => {
+        .setCursorResultTableFormatter((builder, series, position, highValue, lowValue) => {
             return builder
                 .addRow('GPU')
                 .addRow('Power Consumption ' + highValue.toFixed(0) + ' watts')
@@ -206,7 +206,7 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
             { axis: 'Hard-Drive', value: 40 },
             { axis: 'GPU', value: 20 }
         )
-        .setResultTableFormatter((tableContentBuilder, series, value, axis, formatValue) => tableContentBuilder
+        .setCursorResultTableFormatter((tableContentBuilder, series, value, axis, formatValue) => tableContentBuilder
             .addRow(series.name)
             .addRow(axis)
             .addRow(value + ' %')
@@ -259,7 +259,7 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
     // ----- Add TextBox below the Donut Chart-----
     donut.addUIElement(UIElementBuilders.TextBox.addStyler(
         textBox =>
-            textBox.setFont(fontSettings => fontSettings.setSize(12)).setText(`Total memory : ${totalMemoryUse} MB`)
+            textBox.setTextFont(fontSettings => fontSettings.setSize(12)).setText(`Total memory : ${totalMemoryUse} MB`)
     )
     )
         .setPosition({ x: 50, y: 10 })
@@ -271,3 +271,15 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
 grid.setRowHeight(0, 2)
 grid.setColumnWidth(0, 3)
 grid.setColumnWidth(1, 2)
+
+// Reduce Font size of LegendBoxes.
+legend.setLegendBoxes((legendBox) => legendBox
+    .setTitleFont((font) => font
+        .setSize(12)
+    )
+    .setEntries((entry) => entry
+        .setTextFont((font) => font
+            .setSize(12)
+        )
+    )
+)
