@@ -1,6 +1,6 @@
-# Dashboard With Pie, XY, Spider and Donut Charts
+# JavaScript Dashboard With Pie, XY, Spider and Donut Charts
 
-![Dashboard With Pie, XY, Spider and Donut Charts](dashboardPie.png)
+![JavaScript Dashboard With Pie, XY, Spider and Donut Charts](dashboardPie.png)
 
 This demo application belongs to the set of examples for LightningChart JS, data visualization library for JavaScript.
 
