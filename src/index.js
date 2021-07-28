@@ -7,26 +7,24 @@ const lcjs = require('@arction/lcjs')
 // Extract required parts from LightningChartJS.
 const {
     lightningChart,
-    SolidFill,
-    ColorRGBA,
     SliceLabelFormatters,
-    ColorPalettes,
     AreaSeriesTypes,
     PointShape,
     UIOrigins,
     UIDraggingModes,
     PieChartTypes,
     UIElementBuilders,
-    SolidFillPalette,
+    emptyFill,
+    emptyLine,
     Themes
 } = lcjs
 
 // Create a 5x2 dashboard.
 const grid = lightningChart().Dashboard({
-    // theme: Themes.dark 
+    // theme: Themes.darkGold 
     numberOfRows: 3,
     numberOfColumns: 2
-}).setBackgroundFillStyle(new SolidFill().setColor(ColorRGBA(24, 24, 24)))
+})
 
 // Create a legendBox docked to the Dashboard.
 const legend = grid.createLegendBoxPanel({
@@ -81,21 +79,11 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
     })
         .setTitle('Power Consumption')
 
-    // Create palette for use with the System Power Consumption chart.
-    const paletteAreaRange = ColorPalettes.arctionWarm(2)
-    const solidFills = [0, 1].map(paletteAreaRange).map(color => new SolidFill({ color }))
-
     // ---- The Area Series both have the same baseline and direction. ----
-    // Create semi-transparent blue area to depict the CPU power usage.
     const areaCPU = xyChart.addAreaSeries({ type: AreaSeriesTypes.Positive })
-        .setFillStyle(new SolidFill().setColor(ColorRGBA(0, 191, 255, 150)))
-        .setStrokeStyle(stroke => stroke.setFillStyle(solidFills[0]))
         .setName('CPU')
 
-    // Create semi-transparent green area to depict the GPU power usage.
     const areaGPU = xyChart.addAreaSeries({ type: AreaSeriesTypes.Positive })
-        .setFillStyle(new SolidFill().setColor(ColorRGBA(124, 252, 0, 150)))
-        .setStrokeStyle(stroke => stroke.setFillStyle(solidFills[1]))
         .setName('GPU')
 
     xyChart.getDefaultAxisX()
@@ -160,8 +148,8 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
         { x: 100 }
     ]
 
-    areaCPU.add(cpuData.map((point) => ({ x: point.x, y: point.x * 3.2 })))
-    areaGPU.add(gpuData.map((point) => ({ x: point.x, y: point.x * 2.8 })))
+    areaCPU.add(cpuData.map((point) => ({ x: point.x, y: point.x * 3.2 + Math.random() * 9.4 })))
+    areaGPU.add(gpuData.map((point) => ({ x: point.x, y: point.x * 2.8 + Math.random() * 6.6 })))
 
     // Set the custom result table
     areaCPU
@@ -198,7 +186,6 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
 
     chart.addSeries(PointShape.Circle)
         .setName('System Load')
-        .setFillStyle(new SolidFill().setColor(ColorRGBA(255, 165, 0, 150)))
         .addPoints(
             { axis: 'CPU', value: 10 },
             { axis: 'Memory', value: 10 },
@@ -244,10 +231,6 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
         processedData.push({ name: `${data.memory[i]}`, value: data.values[i] });
     }
 
-    // ----- Create fullSpectrum Palette for Donut (defines color of Slice filling) -----
-    const palette = SolidFillPalette(ColorPalettes.fullSpectrum, 7)
-    donut.setSliceFillStyle(palette)
-
     // ----- Create Slices -----
     processedData.map((item) => donut.addSlice(item.name, item.value))
     donut.setLabelFormatter(SliceLabelFormatters.NamePlusValue)
@@ -257,20 +240,20 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
     legend.add(donut)
 
     // ----- Add TextBox below the Donut Chart-----
-    donut.addUIElement(UIElementBuilders.TextBox.addStyler(
-        textBox =>
-            textBox.setTextFont(fontSettings => fontSettings.setSize(12)).setText(`Total memory : ${totalMemoryUse} MB`)
-    )
-    )
+    donut.addUIElement(UIElementBuilders.TextBox)
         .setPosition({ x: 50, y: 10 })
         .setOrigin(UIOrigins.Center)
         .setDraggingMode(UIDraggingModes.notDraggable)
         .setMargin(5)
+        .setBackground((background) => background
+            .setFillStyle(emptyFill)
+            .setStrokeStyle(emptyLine)
+        )
+        .setTextFont(fontSettings => fontSettings.setSize(12))
+        .setText(`Total memory : ${totalMemoryUse} MB`)
 }
 
 grid.setRowHeight(0, 2)
-grid.setColumnWidth(0, 3)
-grid.setColumnWidth(1, 2)
 
 // Reduce Font size of LegendBoxes.
 legend.setLegendBoxes((legendBox) => legendBox
