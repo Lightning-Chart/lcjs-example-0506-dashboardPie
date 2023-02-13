@@ -16,14 +16,14 @@ const {
     UIElementBuilders,
     emptyFill,
     emptyLine,
-    Themes
+    Themes,
 } = lcjs
 
 // Create a 5x2 dashboard.
 const grid = lightningChart().Dashboard({
-    // theme: Themes.darkGold 
+    // theme: Themes.darkGold
     numberOfRows: 3,
-    numberOfColumns: 2
+    numberOfColumns: 2,
 })
 
 // Create a legendBox docked to the Dashboard.
@@ -31,7 +31,7 @@ const legend = grid.createLegendBoxPanel({
     columnIndex: 1,
     rowIndex: 2,
     columnSpan: 1,
-    rowSpan: 1
+    rowSpan: 1,
 })
 
 const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChartTypes.LabelsInsideSlices
@@ -39,15 +39,15 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
 //Pie Chart
 {
     //Create a Pie Chart
-    const pie = grid.createPieChart(({
-        columnIndex: 0,
-        rowIndex: 0,
-        columnSpan: 1,
-        rowSpan: 1,
-        pieOptions: { type: pieType }
-    }))
+    const pie = grid
+        .createPieChart({
+            columnIndex: 0,
+            rowIndex: 0,
+            columnSpan: 1,
+            rowSpan: 1,
+            pieOptions: { type: pieType },
+        })
         .setTitle('CPU Usage')
-        .setAnimationsEnabled(true)
         .setMultipleSliceExplosion(true)
 
     // ----- CPU Usage data -----
@@ -55,7 +55,7 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
         { name: 'OS', value: 20 },
         { name: 'Browser', value: 5 },
         { name: 'Video editor', value: 10 },
-        { name: 'Unused', value: 65 }
+        { name: 'Unused', value: 65 },
     ]
 
     // ----- Create Slices -----
@@ -71,25 +71,22 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
 // Area Range
 {
     // Create a XY Chart.
-    const xyChart = grid.createChartXY({
-        columnIndex: 1,
-        rowIndex: 1,
-        columnSpan: 1,
-        rowSpan: 1
-    })
+    const xyChart = grid
+        .createChartXY({
+            columnIndex: 1,
+            rowIndex: 1,
+            columnSpan: 1,
+            rowSpan: 1,
+        })
         .setTitle('Power Consumption')
 
     // ---- The Area Series both have the same baseline and direction. ----
-    const areaCPU = xyChart.addAreaSeries({ type: AreaSeriesTypes.Positive })
-        .setName('CPU')
+    const areaCPU = xyChart.addAreaSeries({ type: AreaSeriesTypes.Positive }).setName('CPU')
 
-    const areaGPU = xyChart.addAreaSeries({ type: AreaSeriesTypes.Positive })
-        .setName('GPU')
+    const areaGPU = xyChart.addAreaSeries({ type: AreaSeriesTypes.Positive }).setName('GPU')
 
-    xyChart.getDefaultAxisX()
-        .setTitle('Component Load (%)')
-    xyChart.getDefaultAxisY()
-        .setTitle('Watts')
+    xyChart.getDefaultAxisX().setTitle('Component Load (%)')
+    xyChart.getDefaultAxisY().setTitle('Watts')
 
     const cpuData = [
         { x: 0 },
@@ -117,7 +114,7 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
         { x: 88 },
         { x: 92 },
         { x: 96 },
-        { x: 100 }
+        { x: 100 },
     ]
     const gpuData = [
         { x: 0 },
@@ -145,90 +142,89 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
         { x: 88 },
         { x: 92 },
         { x: 96 },
-        { x: 100 }
+        { x: 100 },
     ]
 
     areaCPU.add(cpuData.map((point) => ({ x: point.x, y: point.x * 3.2 + Math.random() * 9.4 })))
     areaGPU.add(gpuData.map((point) => ({ x: point.x, y: point.x * 2.8 + Math.random() * 6.6 })))
 
     // Set the custom result table
-    areaCPU
-        .setCursorResultTableFormatter((builder, series, position, highValue, lowValue) => {
-            return builder
-                .addRow('CPU')
-                .addRow('Power Consumption ' + highValue.toFixed(0) + ' watts')
-                .addRow('component load ' + position.toFixed(0) + ' %')
-        })
-    areaGPU
-        .setCursorResultTableFormatter((builder, series, position, highValue, lowValue) => {
-            return builder
-                .addRow('GPU')
-                .addRow('Power Consumption ' + highValue.toFixed(0) + ' watts')
-                .addRow('component load ' + position.toFixed(0) + ' %')
-        })
+    areaCPU.setCursorResultTableFormatter((builder, series, position, highValue, lowValue) => {
+        return builder
+            .addRow('CPU')
+            .addRow('Power Consumption ' + highValue.toFixed(0) + ' watts')
+            .addRow('component load ' + position.toFixed(0) + ' %')
+    })
+    areaGPU.setCursorResultTableFormatter((builder, series, position, highValue, lowValue) => {
+        return builder
+            .addRow('GPU')
+            .addRow('Power Consumption ' + highValue.toFixed(0) + ' watts')
+            .addRow('component load ' + position.toFixed(0) + ' %')
+    })
 
     // Add XY Chart to LegendBox
     legend.add(xyChart)
-
 }
 // Spider
 {
     //Create a Spider Chart
-    const chart = grid.createSpiderChart({
-        columnIndex: 1,
-        rowIndex: 0,
-        columnSpan: 1,
-        rowSpan: 1
-    })
+    const chart = grid
+        .createSpiderChart({
+            columnIndex: 1,
+            rowIndex: 0,
+            columnSpan: 1,
+            rowSpan: 1,
+        })
         .setTitle('Average Component Load')
         .setScaleLabelFont((font) => font.setSize(12))
         .setAxisLabelFont((font) => font.setSize(14).setStyle('italic'))
 
-    chart.addSeries(PointShape.Circle)
+    chart
+        .addSeries(PointShape.Circle)
         .setName('System Load')
         .addPoints(
             { axis: 'CPU', value: 10 },
             { axis: 'Memory', value: 10 },
             { axis: 'Network', value: 20 },
             { axis: 'Hard-Drive', value: 40 },
-            { axis: 'GPU', value: 20 }
+            { axis: 'GPU', value: 20 },
         )
-        .setCursorResultTableFormatter((tableContentBuilder, series, value, axis, formatValue) => tableContentBuilder
-            .addRow(series.name)
-            .addRow(axis)
-            .addRow(value + ' %')
+        .setCursorResultTableFormatter((tableContentBuilder, series, value, axis, formatValue) =>
+            tableContentBuilder
+                .addRow(series.name)
+                .addRow(axis)
+                .addRow(value + ' %'),
         )
     // Add Spider Chart to LegendBox
     legend.add(chart)
-
 }
 
 //Donut Chat
 {
     //Create a Donut Chart
-    const donut = grid.createPieChart({
-        columnIndex: 0,
-        rowIndex: 1,
-        columnSpan: 1,
-        rowSpan: 2,
-        pieOptions: { type: pieType }
-    })
+    const donut = grid
+        .createPieChart({
+            columnIndex: 0,
+            rowIndex: 1,
+            columnSpan: 1,
+            rowSpan: 2,
+            pieOptions: { type: pieType },
+        })
         .setTitle('Memory Usage')
-        .setAnimationsEnabled(true)
         .setMultipleSliceExplosion(false)
         .setInnerRadius(50)
 
     // ----- Static data -----
     const data = {
         memory: ['OS', 'Browser', 'Video editor', 'Unused'],
-        values: [1000, 692, 2000, 4500]
+        values: [1000, 692, 2000, 4500],
     }
     // Preparing data for each Slice
-    const processedData = [];
-    let totalMemoryUse = 0;
+    const processedData = []
+    let totalMemoryUse = 0
     for (let i = 0; i < data.values.length; i++) {
-        totalMemoryUse += data.values[i];
-        processedData.push({ name: `${data.memory[i]}`, value: data.values[i] });
+        totalMemoryUse += data.values[i]
+        processedData.push({ name: `${data.memory[i]}`, value: data.values[i] })
     }
 
     // ----- Create Slices -----
@@ -240,29 +236,20 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
     legend.add(donut)
 
     // ----- Add TextBox below the Donut Chart-----
-    donut.addUIElement(UIElementBuilders.TextBox)
+    donut
+        .addUIElement(UIElementBuilders.TextBox)
         .setPosition({ x: 50, y: 10 })
         .setOrigin(UIOrigins.Center)
         .setDraggingMode(UIDraggingModes.notDraggable)
         .setMargin(5)
-        .setBackground((background) => background
-            .setFillStyle(emptyFill)
-            .setStrokeStyle(emptyLine)
-        )
-        .setTextFont(fontSettings => fontSettings.setSize(12))
+        .setBackground((background) => background.setFillStyle(emptyFill).setStrokeStyle(emptyLine))
+        .setTextFont((fontSettings) => fontSettings.setSize(12))
         .setText(`Total memory : ${totalMemoryUse} MB`)
 }
 
 grid.setRowHeight(0, 2)
 
 // Reduce Font size of LegendBoxes.
-legend.setLegendBoxes((legendBox) => legendBox
-    .setTitleFont((font) => font
-        .setSize(12)
-    )
-    .setEntries((entry) => entry
-        .setTextFont((font) => font
-            .setSize(12)
-        )
-    )
+legend.setLegendBoxes((legendBox) =>
+    legendBox.setTitleFont((font) => font.setSize(12)).setEntries((entry) => entry.setTextFont((font) => font.setSize(12))),
 )
