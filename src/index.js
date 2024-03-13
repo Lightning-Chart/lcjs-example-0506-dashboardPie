@@ -22,7 +22,7 @@ const {
 // Create a 5x2 dashboard.
 // NOTE: Using `Dashboard` is no longer recommended for new applications. Find latest recommendations here: https://lightningchart.com/js-charts/docs/basic-topics/grouping-charts/
 const grid = lightningChart().Dashboard({
-    // theme: Themes.darkGold
+    theme: Themes[new URLSearchParams(window.location.search).get('theme') || 'darkGold'] || undefined,
     numberOfRows: 3,
     numberOfColumns: 2,
 })
