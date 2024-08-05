@@ -2,7 +2,7 @@
  * LightningChartJS example that showcases series/axes progressing to all kinds of directions inside a dashboard.
  */
 // Import LightningChartJS
-const lcjs = require('@arction/lcjs')
+const lcjs = require('@lightningchart/lcjs')
 
 // Extract required parts from LightningChartJS.
 const {
@@ -84,9 +84,8 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
         .setTitle('Power Consumption')
 
     // ---- The Area Series both have the same baseline and direction. ----
-    const areaCPU = xyChart.addAreaSeries({ type: AreaSeriesTypes.Positive }).setName('CPU')
-
-    const areaGPU = xyChart.addAreaSeries({ type: AreaSeriesTypes.Positive }).setName('GPU')
+    const areaCPU = xyChart.addPointLineAreaSeries({ dataPattern: 'ProgressiveX' }).setPointFillStyle(emptyFill).setName('CPU')
+    const areaGPU = xyChart.addPointLineAreaSeries({ dataPattern: 'ProgressiveX' }).setPointFillStyle(emptyFill).setName('GPU')
 
     xyChart.getDefaultAxisX().setTitle('Component Load (%)')
     xyChart.getDefaultAxisY().setTitle('Watts')
@@ -151,20 +150,6 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
     areaCPU.add(cpuData.map((point) => ({ x: point.x, y: point.x * 3.2 + Math.random() * 9.4 })))
     areaGPU.add(gpuData.map((point) => ({ x: point.x, y: point.x * 2.8 + Math.random() * 6.6 })))
 
-    // Set the custom result table
-    areaCPU.setCursorResultTableFormatter((builder, series, position, highValue, lowValue) => {
-        return builder
-            .addRow('CPU')
-            .addRow('Power Consumption ' + highValue.toFixed(0) + ' watts')
-            .addRow('component load ' + position.toFixed(0) + ' %')
-    })
-    areaGPU.setCursorResultTableFormatter((builder, series, position, highValue, lowValue) => {
-        return builder
-            .addRow('GPU')
-            .addRow('Power Consumption ' + highValue.toFixed(0) + ' watts')
-            .addRow('component load ' + position.toFixed(0) + ' %')
-    })
-
     // Add XY Chart to LegendBox
     legend.add(xyChart)
 }
@@ -183,7 +168,7 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
         .setAxisLabelFont((font) => font.setSize(14).setStyle('italic'))
 
     chart
-        .addSeries(PointShape.Circle)
+        .addSeries()
         .setName('System Load')
         .addPoints(
             { axis: 'CPU', value: 10 },
@@ -191,12 +176,6 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
             { axis: 'Network', value: 20 },
             { axis: 'Hard-Drive', value: 40 },
             { axis: 'GPU', value: 20 },
-        )
-        .setCursorResultTableFormatter((tableContentBuilder, series, value, axis, formatValue) =>
-            tableContentBuilder
-                .addRow(series.name)
-                .addRow(axis)
-                .addRow(value + ' %'),
         )
     // Add Spider Chart to LegendBox
     legend.add(chart)
