@@ -29,8 +29,8 @@ const grid = lightningChart({
     numberOfColumns: 2,
 })
 
-// Create a legendBox docked to the Dashboard.
-const legend = grid.createLegendBoxPanel({
+// Create a legend docked to the Dashboard.
+const legendPanel = grid.createLegendPanel({
     columnIndex: 1,
     rowIndex: 2,
     columnSpan: 1,
@@ -49,6 +49,7 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
             columnSpan: 1,
             rowSpan: 1,
             pieOptions: { type: pieType },
+            legend: { visible: false },
         })
         .setTitle('CPU Usage')
         .setMultipleSliceExplosion(true)
@@ -68,8 +69,8 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
     pie.setLabelFormatter(SliceLabelFormatters.NamePlusRelativeValue)
     pie.setLabelFont((font) => font.setSize(15))
 
-    // Add Pie chart to LegendBox
-    legend.add(pie)
+    // Add Pie chart to LegendPanel
+    legendPanel.add(pie)
 }
 // Area Range
 {
@@ -80,12 +81,13 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
             rowIndex: 1,
             columnSpan: 1,
             rowSpan: 1,
+            legend: { visible: false },
         })
         .setTitle('Power Consumption')
 
     // ---- The Area Series both have the same baseline and direction. ----
-    const areaCPU = xyChart.addPointLineAreaSeries({ dataPattern: 'ProgressiveX' }).setPointFillStyle(emptyFill).setName('CPU')
-    const areaGPU = xyChart.addPointLineAreaSeries({ dataPattern: 'ProgressiveX' }).setPointFillStyle(emptyFill).setName('GPU')
+    const areaCPU = xyChart.addPointLineAreaSeries({}).setPointFillStyle(emptyFill).setName('CPU')
+    const areaGPU = xyChart.addPointLineAreaSeries({}).setPointFillStyle(emptyFill).setName('GPU')
 
     xyChart.getDefaultAxisX().setTitle('Component Load (%)')
     xyChart.getDefaultAxisY().setTitle('Watts')
@@ -147,11 +149,11 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
         { x: 100 },
     ]
 
-    areaCPU.add(cpuData.map((point) => ({ x: point.x, y: point.x * 3.2 + Math.random() * 9.4 })))
-    areaGPU.add(gpuData.map((point) => ({ x: point.x, y: point.x * 2.8 + Math.random() * 6.6 })))
+    areaCPU.appendJSON(cpuData.map((point) => ({ x: point.x, y: point.x * 3.2 + Math.random() * 9.4 })))
+    areaGPU.appendJSON(gpuData.map((point) => ({ x: point.x, y: point.x * 2.8 + Math.random() * 6.6 })))
 
-    // Add XY Chart to LegendBox
-    legend.add(xyChart)
+    // Add XY Chart to LegendPanel
+    legendPanel.add(xyChart)
 }
 // Spider
 {
@@ -162,6 +164,7 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
             rowIndex: 0,
             columnSpan: 1,
             rowSpan: 1,
+            legend: { visible: false },
         })
         .setTitle('Average Component Load')
         .setScaleLabelFont((font) => font.setSize(12))
@@ -177,8 +180,11 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
             { axis: 'Hard-Drive', value: 40 },
             { axis: 'GPU', value: 20 },
         )
-    // Add Spider Chart to LegendBox
-    legend.add(chart)
+
+    chart.setAxisInterval({ start: 0, end: 50, stopAxisAfter: true })
+
+    // Add Spider Chart to LegendPanel
+    legendPanel.add(chart)
 }
 
 //Donut Chat
@@ -191,6 +197,7 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
             columnSpan: 1,
             rowSpan: 2,
             pieOptions: { type: pieType },
+            legend: { visible: false },
         })
         .setTitle('Memory Usage')
         .setMultipleSliceExplosion(false)
@@ -214,8 +221,8 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
     donut.setLabelFormatter(SliceLabelFormatters.NamePlusValue)
     donut.setLabelFont((font) => font.setSize(15))
 
-    //add Donut to Legend Box
-    legend.add(donut)
+    //add Donut to LegendPanel
+    legendPanel.add(donut)
 
     // ----- Add TextBox below the Donut Chart-----
     donut
@@ -230,8 +237,3 @@ const pieType = window.innerWidth > 850 ? PieChartTypes.LabelsOnSides : PieChart
 }
 
 grid.setRowHeight(0, 2)
-
-// Reduce Font size of LegendBoxes.
-legend.setLegendBoxes((legendBox) =>
-    legendBox.setTitleFont((font) => font.setSize(12)).setEntries((entry) => entry.setTextFont((font) => font.setSize(12))),
-)
